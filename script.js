@@ -10,7 +10,7 @@ const divide = (a, b) => {
 };
 
 // Función operate central que toma un operador y dos números
-conts operate = (operator, a, b) => {
+const operate = (operator, a, b) => {
     a = Number(a);
     b = Number(b);
     switch (operator) {
@@ -30,17 +30,17 @@ conts operate = (operator, a, b) => {
 // Variables de estado de la calculadora
 let firstOperand = '';
 let secondOperand = '';
-let currentOperand = null;
+let currentOperation = null;
 let resetScreen = false;
 
 // Seleccionadores de DOM
 const display = document.getElementById('display');
 const numberButtons = document.querySelectorAll('[data-number]');
 const operatorButtons = document.querySelectorAll('[data-operator]');
-const equalsButton = document.getElementById('equal');
+const equalsButton = document.getElementById('equals');
 const clearButton = document.getElementById('clear');
 const deleteButton = document.getElementById('delete');
-const pointButton = document.getElementById('point');
+const pointButton = document.getElementById('decimal');
 
 // Event listener para botones
 numberButtons.forEach((button) =>
@@ -61,6 +61,11 @@ function appendNumber(number) {
         resetDisplay();
     }
     display.textContent += number;
+}
+
+function resetDisplay() {
+    display.textContent = '';
+    resetScreen = false;
 }
 
 function clear() {
@@ -97,14 +102,16 @@ function roundResult(number) {
 
 function appendPoint() {
     if (resetScreen) resetDisplay();
-    if (display.textContent === '') display.textContent = '0';
-    if (¡display.textContent.includes('.')) {
+    if (display.textContent === '') {
+        display.textContent = '0';
+    }
+    if (!display.textContent.includes('.')) {
         display.textContent += '.';
     }
 }
 
 function deleteNumber() {
-    display.textContent = display.textContent.toString().slice(0, -1),
+    display.textContent = display.textContent.toString().slice(0, -1);
     if (display.textContent === '') {
         display.textContent = '0';
     }
